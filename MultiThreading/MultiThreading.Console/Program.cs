@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MultiThreading.Console._1;
+using MultiThreading.Console._2;
 
 namespace MultiThreading.Console
 {
@@ -12,7 +13,9 @@ namespace MultiThreading.Console
 	{
 		static void Main(string[] args)
 		{
-			Check1();
+			//Check1();
+			Check2();
+			//Check2();
 		}
 
 		public static void Check1()
@@ -25,5 +28,10 @@ namespace MultiThreading.Console
 				}
 			}).Start().Wait();
 		}
+
+		public static void Check2()
+		{
+		}
+
 	}
 }
