@@ -15,7 +15,6 @@ namespace MultiThreading.Console
 		{
 			//Check1();
 			Check2();
-			//Check2();
 		}
 
 		public static void Check1()
