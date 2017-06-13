@@ -7,11 +7,6 @@ namespace MultiThreading.Console._2
 {
 	class TaskChain
 	{
-		public static Task<T> Start<T>(Func<T> initialAction)
-		{
-			return Task<T>.Factory.StartNew(initialAction);
-		}
-
 		public static int[] GenerateArray(int arrayLength, int upperBound = 0, int lowerBound = 10)
 		{
 			Random rnd = new Random(Environment.TickCount);
@@ -40,18 +35,18 @@ namespace MultiThreading.Console._2
 
 	public static class ContinuationExt
 	{
-		public static Task<T[]> LogAndContinueArray<T>(this Task<T[]> task, Func<T[], T[]> nextAction)
+		public static Task<T[]> LogAndContinueArray<T>(this Task<T[]> task, Func<T[], T[]> nextFunc)
 		{
 			T[] result = task.Result;
 			result.CustomLog();
-			return task.ContinueWith(ant => nextAction(result));
+			return task.ContinueWith(ant => nextFunc(result));
 		}
 
-		public static Task<double> LogAndContinue<T>(this Task<T[]> task, Func<T[], double> nextAction)
+		public static Task<double> LogAndContinue<T>(this Task<T[]> task, Func<T[], double> nextFunc)
 		{
 			T[] result = task.Result;
 			result.CustomLog();
-			return task.ContinueWith(ant => nextAction(result));
+			return task.ContinueWith(ant => nextFunc(result));
 		}
 
 	}

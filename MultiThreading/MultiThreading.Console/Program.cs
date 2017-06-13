@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MultiThreading.Console._1;
 using MultiThreading.Console._2;
 
@@ -31,14 +25,8 @@ namespace MultiThreading.Console
 
 		public static void Check2()
 		{
-			//TaskChain.Start(() => TaskChain.GenerateArray(10))
-			//	.ContinueWith(ant => TaskChain.MultiplyBy(ant.Result))
-			//	.ContinueWith(ant => TaskChain.SortAscending(ant.Result))
-			//	.ContinueWith(ant => TaskChain.Average(ant.Result))
-			//	.Wait();
-
-			TaskChain
-				.Start(() => TaskChain.GenerateArray(10))
+			Task<int[]>.Factory
+				.StartNew(() => TaskChain.GenerateArray(10))
 				.LogAndContinueArray(TaskChain.MultiplyBy)
 				.LogAndContinueArray(TaskChain.SortAscending)
 				.LogAndContinue(TaskChain.Average)
