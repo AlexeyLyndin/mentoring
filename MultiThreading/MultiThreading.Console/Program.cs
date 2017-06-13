@@ -31,10 +31,18 @@ namespace MultiThreading.Console
 
 		public static void Check2()
 		{
-			TaskChain.Start(() => TaskChain.GenerateArray(10))
-				.ContinueWith(ant => TaskChain.MultiplyBy(ant.Result, 2))
-				.ContinueWith(ant => TaskChain.SortAscending(ant.Result))
-				.ContinueWith(ant => TaskChain.Average(ant.Result))
+			//TaskChain.Start(() => TaskChain.GenerateArray(10))
+			//	.ContinueWith(ant => TaskChain.MultiplyBy(ant.Result))
+			//	.ContinueWith(ant => TaskChain.SortAscending(ant.Result))
+			//	.ContinueWith(ant => TaskChain.Average(ant.Result))
+			//	.Wait();
+
+			TaskChain
+				.Start(() => TaskChain.GenerateArray(10))
+				.LogAndContinueArray(TaskChain.MultiplyBy)
+				.LogAndContinueArray(TaskChain.SortAscending)
+				.LogAndContinue(TaskChain.Average)
+				.ContinueWith(ant => System.Console.WriteLine(ant.Result))
 				.Wait();
 		}
 
