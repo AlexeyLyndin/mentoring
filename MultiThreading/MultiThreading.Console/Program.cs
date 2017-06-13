@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,6 +31,11 @@ namespace MultiThreading.Console
 
 		public static void Check2()
 		{
+			TaskChain.Start(() => TaskChain.GenerateArray(10))
+				.ContinueWith(ant => TaskChain.MultiplyBy(ant.Result, 2))
+				.ContinueWith(ant => TaskChain.SortAscending(ant.Result))
+				.ContinueWith(ant => TaskChain.Average(ant.Result))
+				.Wait();
 		}
 
 	}
