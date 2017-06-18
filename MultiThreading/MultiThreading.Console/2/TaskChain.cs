@@ -26,7 +26,7 @@ namespace MultiThreading.Console._2
 
 		public static int[] MultiplyBy(int[] array)
 		{
-			int[] result = array.Select(v => v * rnd.Value.Next()).ToArray();
+			int[] result = array.Select(v => v * rnd.Value.Next(0, 10)).ToArray();
 			return result;
 		}
 
@@ -57,6 +57,13 @@ namespace MultiThreading.Console._2
 			T[] result = task.Result;
 			result.CustomLog();
 			return task.ContinueWith(ant => nextFunc(result));
+		}
+
+		public static Task LogAndContinue<T>(this Task<T> task, Action nextAction)
+		{
+			T result = task.Result;
+			result.CustomLog();
+			return task.ContinueWith(ant => nextAction());
 		}
 
 	}

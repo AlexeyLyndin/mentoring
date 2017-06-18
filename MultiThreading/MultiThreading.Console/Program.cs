@@ -30,7 +30,7 @@ namespace MultiThreading.Console
 				.LogAndContinueArray(TaskChain.MultiplyBy)
 				.LogAndContinueArray(TaskChain.SortAscending)
 				.LogAndContinue(TaskChain.Average)
-				.ContinueWith(ant => System.Console.WriteLine(ant.Result))
+				.LogAndContinue(() => System.Console.WriteLine("Finish"))
 				.Wait();
 		}
 
