@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using BenchmarkDotNet.Running;
 using MultiThreading.Console._1;
 using MultiThreading.Console._2;
+using MultiThreading.Console._3;
 
 namespace MultiThreading.Console
 {
@@ -9,7 +12,8 @@ namespace MultiThreading.Console
 		static void Main(string[] args)
 		{
 			//Check1();
-			Check2();
+			//Check2();
+			Check3();
 		}
 
 		public static void Check1()
@@ -34,5 +38,9 @@ namespace MultiThreading.Console
 				.Wait();
 		}
 
+		public static void Check3()
+		{
+			BenchmarkRunner.Run<MatrixBenchmark>();
+		}
 	}
 }
