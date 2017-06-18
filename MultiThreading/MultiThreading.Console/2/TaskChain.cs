@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MultiThreading.Console._2
 {
+	/// <summary>
+	/// Task chain methods helper.
+	/// </summary>
 	class TaskChain
 	{
+		private static ThreadLocal<Random> rnd;
+
+		static TaskChain()
+		{
+			rnd = new ThreadLocal<Random>(() => new Random(Environment.TickCount));
+		}
+
 		public static int[] GenerateArray(int arrayLength, int upperBound = 0, int lowerBound = 10)
 		{
-			Random rnd = new Random(Environment.TickCount);
-			int[] result = Enumerable.Range(0, arrayLength).Select(v => rnd.Next(upperBound, lowerBound)).ToArray();
+			int[] result = Enumerable.Range(0, arrayLength).Select(v => rnd.Value.Next(upperBound, lowerBound)).ToArray();
 			return result;
 		}
 
 		public static int[] MultiplyBy(int[] array)
 		{
-			int[] result = array.Select(v => v * 2).ToArray();
+			int[] result = array.Select(v => v * rnd.Value.Next()).ToArray();
 			return result;
 		}
 
