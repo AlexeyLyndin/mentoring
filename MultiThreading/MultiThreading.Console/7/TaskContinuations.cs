@@ -29,6 +29,8 @@ namespace MultiThreading.Console._7
 						System.Console.WriteLine(ant.Exception?.Message);
 					}, TaskContinuationOptions.OnlyOnFaulted);
 					break;
+					case ParentTaskOpt.C:
+						break;
 				default:
 					next = new Task(() => {});
 					break;
