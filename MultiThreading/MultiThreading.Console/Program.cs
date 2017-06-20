@@ -6,6 +6,8 @@ using MultiThreading.Console._1;
 using MultiThreading.Console._2;
 using MultiThreading.Console._3;
 using MultiThreading.Console._4;
+using MultiThreading.Console._6;
+using MultiThreading.Console._7;
 
 namespace MultiThreading.Console
 {
@@ -16,7 +18,9 @@ namespace MultiThreading.Console
 			//Check1();
 			//Check2();
 			//Check3();
-			Check4();
+			//Check4_5();
+			//Check6();
+			Check7();
 		}
 
 		public static void Check1()
@@ -46,11 +50,23 @@ namespace MultiThreading.Console
 			BenchmarkRunner.Run<MatrixBenchmark>();
 		}
 
-		public static void Check4()
+		public static void Check4_5()
 		{
 			//RecursiveThread.CreateThread(100);
 			RecursiveThread.CreateThreadPool(100);
 
+		}
+
+		public static void Check6()
+		{
+			//BenchmarkRunner.Run<BenchmarkCRW>();
+			ConcurrentReadWrite.StartMRES();
+			ConcurrentReadWrite.StartARE();
+		}
+
+		public static void Check7()
+		{
+			TaskContinuations.Do(ParentTaskOpt.B);
 		}
 	}
 }
