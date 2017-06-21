@@ -30,6 +30,11 @@ namespace MultiThreading.Console._7
 					}, TaskContinuationOptions.OnlyOnFaulted);
 					break;
 					case ParentTaskOpt.C:
+					next = task.ContinueWith(ant =>
+					{
+						System.Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+						System.Console.WriteLine(ant.Exception?.Message);
+					}, TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.ExecuteSynchronously);
 						break;
 				default:
 					next = new Task(() => {});
@@ -54,6 +59,10 @@ namespace MultiThreading.Console._7
 					});
 					break;
 				case ParentTaskOpt.B:
+					Task.Factory.StartNew(() => { throw null; }, atp);
+					break;
+				case ParentTaskOpt.C:
+					System.Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
 					Task.Factory.StartNew(() => { throw null; }, atp);
 					break;
 				default:

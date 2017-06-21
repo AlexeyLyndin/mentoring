@@ -66,7 +66,7 @@ namespace MultiThreading.Console
 
 		public static void Check7()
 		{
-			TaskContinuations.Do(ParentTaskOpt.B);
+			TaskContinuations.Do(ParentTaskOpt.C);
 		}
 	}
 }
