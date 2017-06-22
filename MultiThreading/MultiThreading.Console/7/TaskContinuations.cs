@@ -9,61 +9,71 @@ namespace MultiThreading.Console._7
 {
 	public class TaskContinuations
 	{
-		public static void Do(ParentTaskOpt opt)
-		{
-			IList<Task> continuationList = new List<Task>();
-			Task task = Task.Factory.StartNew(() => ParentAction(opt));
-			Task next;
-			switch (opt)
-			{
-				case ParentTaskOpt.A:
-					next = task.ContinueWith(ant =>
-					{
-						Thread.Sleep(1000);
-						System.Console.WriteLine("Simple continuation");
-					});
-					break;
-				case ParentTaskOpt.B:
-					next = task.ContinueWith(ant =>
-					{
-						System.Console.WriteLine(ant.Exception?.Message);
-					}, TaskContinuationOptions.OnlyOnFaulted);
-					break;
-					case ParentTaskOpt.C:
-					next = task.ContinueWith(ant =>
-					{
-						System.Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-						System.Console.WriteLine(ant.Exception?.Message);
-					}, TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.ExecuteSynchronously);
-						break;
-				default:
-					next = new Task(() => {});
-					break;
-			}
+		private static CancellationTokenSource cts = new CancellationTokenSource();
+		private static CancellationToken token = cts.Token;
 
-			next.ContinueWith(ant => System.Console.WriteLine("Stop")).Wait();
+		public static void Do(ChildTaskOpt opt)
+		{
+			System.Console.WriteLine($"Main thread ID - {Thread.CurrentThread.ManagedThreadId}");
+			Task task = Task.Factory.StartNew(() => ParentAction(opt), token);
+
+
+			if (ChildTaskOpt.D == opt)
+			{
+				cts.Cancel();
+			}
+			task.ContinueWith(ant =>
+			{
+				System.Console.WriteLine("Continuation A");
+			}).Wait();
+
+			task.ContinueWith(ant =>
+			{
+				System.Console.WriteLine("Continuation B");
+			}, TaskContinuationOptions.OnlyOnFaulted);
+
+			task.ContinueWith(ant =>
+			{
+				System.Console.WriteLine("Continuation C");
+				System.Console.WriteLine($"Continuation thread ID - {Thread.CurrentThread.ManagedThreadId}");
+			}, TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnFaulted);
+
+			task.ContinueWith(ant =>
+			{
+				System.Console.WriteLine("Continuation D");
+				System.Console.WriteLine($"Is Continuation on TP - {Thread.CurrentThread.IsThreadPoolThread}");
+			}, TaskContinuationOptions.OnlyOnCanceled | TaskContinuationOptions.LongRunning);
+
+			
 		}
 
 		private static void ParentAction(object opt)
 		{
 			TaskCreationOptions atp = TaskCreationOptions.AttachedToParent;
-			ParentTaskOpt option = (ParentTaskOpt)opt;
+			ChildTaskOpt option = (ChildTaskOpt)opt;
 
 			switch (option)
 			{
-				case ParentTaskOpt.A:
+				case ChildTaskOpt.A:
 					Task.Factory.StartNew(() =>
 					{
-						Thread.Sleep(1000);
 						System.Console.WriteLine("Case A");
-					});
+					}, atp);
 					break;
-				case ParentTaskOpt.B:
+				case ChildTaskOpt.B:
 					Task.Factory.StartNew(() => { throw null; }, atp);
 					break;
-				case ParentTaskOpt.C:
-					System.Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
-					Task.Factory.StartNew(() => { throw null; }, atp);
+				case ChildTaskOpt.C:
+					System.Console.WriteLine($"Parent task thread ID - {Thread.CurrentThread.ManagedThreadId}");
+					Task.Factory.StartNew(() =>
+					{
+						System.Console.WriteLine($"Child task thread ID - {Thread.CurrentThread.ManagedThreadId}");
+						throw null;
+					}, atp);
+					break;
+				case ChildTaskOpt.D:
+					System.Console.WriteLine("Canceling...");
+					token.ThrowIfCancellationRequested();
 					break;
 				default:
 					System.Console.WriteLine("Default");
@@ -72,7 +82,7 @@ namespace MultiThreading.Console._7
 		}
 	}
 
-	public enum ParentTaskOpt
+	public enum ChildTaskOpt
 	{
 		A,
 		B,

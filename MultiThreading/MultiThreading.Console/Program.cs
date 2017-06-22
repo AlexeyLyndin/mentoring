@@ -21,6 +21,7 @@ namespace MultiThreading.Console
 			//Check4_5();
 			//Check6();
 			Check7();
+
 		}
 
 		public static void Check1()
@@ -66,7 +67,8 @@ namespace MultiThreading.Console
 
 		public static void Check7()
 		{
-			TaskContinuations.Do(ParentTaskOpt.C);
+			TaskContinuations.Do(ChildTaskOpt.C);
+			Thread.Sleep(10000);
 		}
 	}
 }
