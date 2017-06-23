@@ -1,0 +1,18 @@
+﻿<Window x:Class="AsyncCounter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AsyncCounter"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+	<Grid>
+		<Label Content="Result:" HorizontalAlignment="Left" Margin="178,40,0,0" VerticalAlignment="Top"/>
+		<Label Content="" HorizontalAlignment="Left" Margin="239,40,0,0" VerticalAlignment="Top" Name="ResultLabel"/>
+		<Button Content="Count" HorizontalAlignment="Left" Margin="22,43,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+		<TextBox HorizontalAlignment="Left" Height="22" Margin="22,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="75" Name="NumberTextBox"/>
+		<TextBlock HorizontalAlignment="Left" Margin="102,90,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="165" Width="93" Name="TextBlock"/>
+		<Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="363,40,0,0" Name="PercentProgress"/>
+
+	</Grid>
+</Window>

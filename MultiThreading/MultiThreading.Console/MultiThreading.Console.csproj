@@ -138,6 +138,7 @@
     <Compile Include="4_5\RecursiveThread.cs" />
     <Compile Include="6\ConcurrentReadWrite.cs" />
     <Compile Include="7\TaskContinuations.cs" />
+    <Compile Include="AsyncAwait\AsyncCounter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

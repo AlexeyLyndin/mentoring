@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreading.Console", "MultiThreading.Console\MultiThreading.Console.csproj", "{9D859F2C-5323-49FC-91D7-F19DB979959C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadManager", "DownloadManager\DownloadManager.csproj", "{2A788F92-EB38-4373-A5EA-975541CB9052}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncCounter", "AsyncCounter\AsyncCounter.csproj", "{14044115-68FB-4C31-AC81-FA5FCF8C43B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{9D859F2C-5323-49FC-91D7-F19DB979959C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D859F2C-5323-49FC-91D7-F19DB979959C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D859F2C-5323-49FC-91D7-F19DB979959C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A788F92-EB38-4373-A5EA-975541CB9052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A788F92-EB38-4373-A5EA-975541CB9052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A788F92-EB38-4373-A5EA-975541CB9052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A788F92-EB38-4373-A5EA-975541CB9052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14044115-68FB-4C31-AC81-FA5FCF8C43B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14044115-68FB-4C31-AC81-FA5FCF8C43B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14044115-68FB-4C31-AC81-FA5FCF8C43B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14044115-68FB-4C31-AC81-FA5FCF8C43B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

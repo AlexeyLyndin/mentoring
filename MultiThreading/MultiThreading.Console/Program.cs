@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Running;
+using MultiThreading.Console.AsyncAwait;
 using MultiThreading.Console._1;
 using MultiThreading.Console._2;
 using MultiThreading.Console._3;
@@ -17,11 +18,11 @@ namespace MultiThreading.Console
 		{
 			//Check1();
 			//Check2();
-			//Check3();
+			Check3();
 			//Check4_5();
 			//Check6();
-			Check7();
-
+			//Check7();
+			//Check8();
 		}
 
 		public static void Check1()
@@ -68,6 +69,24 @@ namespace MultiThreading.Console
 		public static void Check7()
 		{
 			TaskContinuations.Do(ChildTaskOpt.C);
+			Thread.Sleep(10000);
+		}
+
+		public static void Check8()
+		{
+			CheckAsyncCounter();
+			SomeOtherWork();
+		}
+
+		public static async Task CheckAsyncCounter()
+		{
+			AsyncCounter counter = new AsyncCounter();
+			Task<int> counterTask = counter.StartCounterAsync(100);
+			int result = await counterTask;
+			System.Console.WriteLine(result);
+		}
+		public static void SomeOtherWork()
+		{
 			Thread.Sleep(10000);
 		}
 	}
